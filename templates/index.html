@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Forecast</h1>
+        <div class="weather-icons">
+            <img src="{{ url_for('static', filename='images/sunny.png') }}" alt="Sunny" class="weather-icon">
+            <img src="{{ url_for('static', filename='images/rainy.png') }}" alt="Rainy" class="weather-icon">
+            <img src="{{ url_for('static', filename='images/storm.png') }}" alt="Storm" class="weather-icon">
+            <img src="{{ url_for('static', filename='images/snow.png') }}" alt="Snow" class="weather-icon">
+        </div>
+        <form method="POST">
+            <label for="city">Enter City</label>
+            <div class="input-container">
+                <input type="text" name="city" id="city" placeholder="Enter city" required>
+                <button type="submit"><i class="fas fa-search"></i> Get Weather</button>
+            </div>
+        </form>
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+        {% if weather_data %}
+            <div class="weather-info">
+                <h2>{{ weather_data['name'] }}, {{ weather_data['sys']['country'] }}</h2>
+                <p>Temperature: {{ weather_data['main']['temp'] }}°C</p>
+                <p>Weather: {{ weather_data['weather'][0]['description'] }}</p>
+                <p>Humidity: {{ weather_data['main']['humidity'] }}%</p>
+                <p>Wind Speed: {{ weather_data['wind']['speed'] }} m/s</p>
+            </div>
+        {% endif %}
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
